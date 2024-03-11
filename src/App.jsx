@@ -41,7 +41,7 @@ function App() {
             <h1 className='h1'>DEVELOPPEUSE WEB</h1>
             <div className='row'>
               <div className='col-sm-6'>
-                <img src='../yo.jpg' alt='image' className='yo' />
+                <img src='./dist/yo.jpg' alt='image' className='yo' />
               </div>
               <div className='col-sm-6'>
                 <div className='card info'>
@@ -140,7 +140,7 @@ function App() {
                 </div>
               </div>
               <div className='col-sm-5'>
-                <img src='../od.jpg' alt='image' className='ya' />
+                <img src='./dist/od.jpg' alt='image' className='ya' />
               </div>
             </div>
             <div>
