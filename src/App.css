@@ -1,0 +1,176 @@
+.family{
+  font-family: 'Times New Roman', Times, serif;
+  background-color: rgb(232, 237, 242);
+  padding: 0.5%;
+}
+.am{
+  border: none;
+  box-shadow: 0px 0px 10px 0px rgb(155, 157, 157);
+  width: 82%;
+  margin-left: 10%;
+  max-height: 618px;
+}
+.input{
+  border: none;
+  position: relative;
+  top: -15px;
+  width: 85%;
+  margin-left: 7%;
+  border-radius: 10px 10px 10px 10px;
+  outline: none; 
+}
+.card .fam{
+  border: none;
+  border-radius: 0%;
+  padding-bottom: 1%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+.card .nav{
+  border: none;
+  border-radius: 0%;
+  padding-top: 2.5%;
+  background-color: rgb(232, 237, 242);
+}
+.h1{
+  padding-top: 3%;
+  text-align: center;
+  font-size: 250%;
+}
+.oli{
+  font-style: italic;
+  font-size: 150%;
+  padding-bottom: 2%;
+  text-shadow: 1px 1px #353536;
+}
+.yo{
+  width: 95%;
+  margin-top: 4%;
+  margin-left: 8%;
+}
+.ya{
+  height: 90%;
+  width: 100%;
+  }
+.card .info{
+  border: none;
+  top: 15%;
+}
+.bar{
+  margin-left: 35%;
+}
+.card .progres{
+  margin-left: 15%;
+  margin-top: 5%;
+  min-height: 40px;
+  border: none;
+}
+.card .compet{
+  border: none;
+  padding: 4%;
+  font-family: inherit;
+  font-size: large;
+  font-style: italic;
+}
+.h4{
+  margin-left: 6.5%;
+  font: bolder;
+}
+.card .exp{
+  border: none;
+  margin-left: 12%;
+  font-size: 85%;
+  margin-top: 5%;
+}
+.h2{
+  padding-top: 3%;
+}
+.card .formulaire{
+ border: none;
+ width: 50%;
+ margin-left: 25%;
+ margin-top: 3%;
+}
+.card .contact{
+ border: none;
+}
+.card .icon{
+  /* border: none; */
+  width: 50%;
+  margin-left: 25%;
+  align-items: center;
+ }
+.container_footer2{
+  font-size: 90%;
+  text-align: center;
+  color:black;
+}
+.reseau{
+  padding-left: 47%;
+}
+.fbs{
+  font-size: 120%;
+}
+.inst{
+  margin-left: 20px;
+  font-size: 120%;
+}
+
+@media screen and (max-width:920px) {
+  .am{
+    border: none;
+    width: 100%;
+    margin-left: 0%;
+    min-height: 1100px;
+    box-shadow: 0px 0px 10px 0px rgb(155, 157, 157);
+  }
+  .yo{
+    width: 94%;
+    margin-top: 4%;
+    margin-left: 3%;
+  }
+  .input{
+    border: none;
+    position: relative;
+    top: -4.5px;
+    width: 80%;
+    margin-left: 9.5%;
+    border-radius: 10px 10px 10px 10px;
+    outline: none; 
+  }
+  .card .progres{
+    margin-left: 15%;
+    margin-top: 5%;
+    min-height: 330px;
+    border: none;
+  }
+  .bar{
+    margin-top: 8%;
+    margin-left: 0%;
+    min-width: 83%;
+  }
+  .h4{
+    margin-left: 6.5%;
+    font: bolder;
+    padding-top: 8%;
+  }
+  .card .formulaire{
+    border: none;
+    width: 80%;
+    margin-left: 10%;
+    margin-top: 7%;
+    }
+    .reseau{
+    padding-left: 42%;
+    display: flex;
+      flex-direction: row !important;
+  }
+  .card .exp{
+    border: none;
+    margin-left: 8%;
+    right: 2%;
+    font-size: 85%;
+    margin-top: 5%;
+  }
+
+}
