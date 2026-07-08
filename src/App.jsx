@@ -235,7 +235,7 @@ export default function App() {
         </ul>
         <a
           className="nav-cv"
-          href="../cv.pdf"
+          href={`${import.meta.env.BASE_URL}cv.pdf`}
           target="_blank"
           rel="noreferrer"
           download
