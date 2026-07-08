@@ -1,208 +1,651 @@
-import { React, useRef } from 'react';
-import './App.css';
-import { FaFacebook } from "react-icons/fa";
-import { FaInstagramSquare } from "react-icons/fa";
-import emailjs from '@emailjs/browser';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { useRef, useState, useEffect } from "react";
+import "./App.css";
+import {
+  FaLinkedin,
+  FaGithub,
+  FaEnvelope,
+  FaWhatsapp,
+  FaPhone,
+  FaMapMarkerAlt,
+  FaArrowUp,
+  FaDownload,
+  FaBars,
+  FaTimes,
+  FaExternalLinkAlt,
+} from "react-icons/fa";
+import emailjs from "@emailjs/browser";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-function App() {
+// ─── Données ────────────────────────────────────────────────────────────────
+const TECHS = [
+  { img: "../html.png", name: "HTML" },
+  { img: "../css.png", name: "CSS" },
+  { img: "../js.png", name: "JavaScript" },
+  { img: "../react.png", name: "React JS" },
+  { img: "../react.png", name: "React Native" },
+  { img: "../node.png", name: "Node.js" },
+  { img: "../php.png", name: "PHP" },
+  { img: "../sql.jpg", name: "SQL" },
+];
 
+const SKILLS_COLS = [
+  {
+    title: "Langages",
+    items: ["JavaScript", "PHP", "SQL", "Node.js"],
+  },
+  {
+    title: "Frameworks & Librairies",
+    items: ["React.js", "React Native", "Express.js", "Bootstrap", "Tailwind"],
+  },
+  {
+    title: "Base de données & Outils",
+    items: ["MySQL", "PostgreSQL", "Git & GitHub", "VS Code", "Figma"],
+  },
+  {
+    title: "Autres compétences",
+    items: ["Analyse de données", "Design UX/UI", "Gestion de projet Agile"],
+  },
+];
+
+const PROJECTS = [
+  {
+    id: 1,
+    title: "OCX – Web",
+    desc: "Application web de courses intra permettant aux clients de demander l'enlèvement de leurs colis et de suivre leurs expéditions en temps réel. Les agents reçoivent des notifications par e-mail pour être informés des nouvelles demandes, puis prennent en charge les colis et mettent à jour leur statut tout au long de la livraison.",
+    badge: "Web",
+    category: "web",
+    color: "#1a2a3d",
+    img: "../intra.PNG",
+  },
+  {
+    id: 2,
+    title: "OCX – Web",
+    desc: "Application web responsive dédiée aux agents pour la gestion des colis. Elle permet d'enregistrer, de trier, de suivre et de mettre à jour les informations relatives aux colis tout au long de leur traitement.",
+    badge: "Web",
+    category: "web",
+    color: "#2a1a3d",
+    img: "../suivi.PNG",
+  },
+  {
+    id: 3,
+    title: "Safenet – Web",
+    desc: "Application web dédiée au traitement et à l'analyse des données, permettant de calculer les consommations et leur montant total, de détecter les variations (données perdues, nouvelles et modifiées).",
+    badge: "Web",
+    category: "web",
+    color: "#1a3d2a",
+    img: "../safenet.PNG",
+  },
+  {
+    id: 4,
+    title: "OCX – Mobile",
+    desc: "Application mobile dédiée aux coursiers, permettant de recevoir les nouvelles courses, de consulter les livraisons assignées et d'assurer leur suivi en temps réel.",
+    badge: "Mobile",
+    category: "mobile",
+    color: "#2d4a22",
+    img: "../Mintra.jpg",
+  },
+  {
+    id: 5,
+    title: "Application MIHARO",
+    desc: "Application web dédiée à l'agriculture, regroupant la vente de produits agricoles, la location de matériel et des formations pour favoriser les échanges et le développement du secteur.",
+    badge: "Web",
+    category: "web",
+    color: "#1a2e45",
+    img: "../miharo.PNG",
+  },
+  {
+    id: 6,
+    title: "OCX – Mobile",
+    desc: "Application mobile dédiée aux agents, permettant de scanner les colis et de mettre à jour leur statut en temps réel.",
+    badge: "Mobile",
+    category: "mobile",
+    color: "#3d2a1a",
+    img: "../mobile.jpg",
+  },
+];
+
+const EXPERIENCES = [
+  {
+    year: "Depuis 2024",
+    title: "Ingénieure en développement informatique – MAGY, Antananarivo",
+    desc: "Développement d'applications web et mobiles, gestion de projets, échanges avec les clients et mise en production des solutions.",
+  },
+  {
+    year: "2023",
+    title: "Stage – HAISOA SARLU, Antananarivo",
+    desc: "Conception et réalisation de l'application MIHARO : plateforme de mise en ligne des produits et matériaux agricoles avec React JS et Node.js.",
+  },
+  {
+    year: "2021",
+    title: "Stage – VIVA Évènement, Toamasina",
+    desc: "Conception et réalisation d'un site web pour publier les nouvelles et diffuser en direct les évènements VIVA, développé en PHP.",
+  },
+  {
+    year: "2019",
+    title: "Stage – DRENETP Atsimo Andrefana",
+    desc: "Conception et réalisation d'une application web de gestion des notes du CEPE, développée en PHP.",
+  },
+];
+
+const DIPLOMAS = [
+  {
+    year: "2023",
+    title: "Master professionnel en Informatique Générale",
+    school: "École Nationale de l'Informatique à Fianarantsoa",
+  },
+  {
+    year: "2021",
+    title: "Licence professionnelle en Informatique Générale",
+    school: "École Nationale de l'Informatique à Fianarantsoa",
+  },
+  {
+    year: "2017",
+    title: "Baccalauréat Série D",
+    school: "Notre Dame de Nazareth à Tuléar",
+  },
+];
+
+// ─── COMPOSANT PRINCIPAL ─────────────────────────────────────────────────────
+export default function App() {
   const form = useRef();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [activeFilter, setActiveFilter] = useState("tous");
+  const [showTop, setShowTop] = useState(false);
+  const [activeSection, setActiveSection] = useState("accueil");
+
+  useEffect(() => {
+    const onScroll = () => {
+      setShowTop(window.scrollY > 400);
+      const sections = [
+        "accueil",
+        "apropos",
+        "competences",
+        "projets",
+        "experiences",
+        "contact",
+      ];
+      for (const id of [...sections].reverse()) {
+        const el = document.getElementById(id);
+        if (el && window.scrollY >= el.offsetTop - 100) {
+          setActiveSection(id);
+          break;
+        }
+      }
+    };
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const sendEmail = (e) => {
     e.preventDefault();
     emailjs
-      .sendForm('service_zzoyvnh', 'template_0gzh3zk', form.current, {
-        publicKey: 'R-03LjkpUJpidtfS5',
+      .sendForm("service_zzoyvnh", "template_0gzh3zk", form.current, {
+        publicKey: "R-03LjkpUJpidtfS5",
       })
       .then(
         () => {
-          console.log("Message envoyé");
           form.current.reset();
-          toast("Message envoyé!");
+          toast.success("✅ Message envoyé avec succès !");
         },
-        (error) => {
-          console.log('FAILED...', error.text);
+        () => {
+          toast.error("❌ Erreur lors de l'envoi. Réessayez.");
         },
       );
   };
 
+  const navLinks = [
+    { href: "#accueil", label: "Accueil", id: "accueil" },
+    { href: "#apropos", label: "À propos", id: "apropos" },
+    { href: "#competences", label: "Compétences", id: "competences" },
+    { href: "#projets", label: "Projets", id: "projets" },
+    { href: "#contact", label: "Contact", id: "contact" },
+  ];
+
+  const filteredProjects =
+    activeFilter === "tous"
+      ? PROJECTS
+      : PROJECTS.filter((p) => p.category === activeFilter);
+
   return (
     <>
-      <div className='family'>
-        <div className='card am'>
-          <header>
-            <div className='card nav'>
-              <input readOnly className='input'></input>
-            </div>
-          </header>
-          <div className='card fam'>
-            <h1 className='h1'>DEVELOPPEUSE WEB</h1>
-            <div className='row'>
-              <div className='col-sm-6'>
-                <img src='./public/yo.jpg' alt='image' className='yo' />
-              </div>
-              <div className='col-sm-6'>
-                <div className='card info'>
-                  <p className='text-center oli'>TODISOA HARIVELO OLINAH</p>
-                  <p className='text-center' style={{ fontSize: 'large', fontStyle: "italic", fontFamily: "inherit" }}>Agée de 24 ans,<br></br>
-                    Je suis une développeuse web,<br></br>
-                    Avoir la connaissance de conception et de design <br></br> UX
-                  </p><br></br>
-                  <div className='card progres text-sm'>
-                    <label style={{ height: '8px' }}> Design</label>
-                    <div className="col-sm-5 progress bar" style={{ height: '8px', width: '45%' }}>
-                      <div className="bg-info" style={{ width: '50%' }}></div>
-                    </div><br></br>
-                    <label style={{ height: '8px' }}> Devéloppement Frontend</label>
-                    <div className="col-sm-5 progress bar" style={{ height: '8px', width: '45%' }}>
-                      <div className="bg-info" style={{ width: '60%' }}></div>
-                    </div><br></br>
-                    <label style={{ height: '8px' }}> Devéloppement Backend</label>
-                    <div className="col-sm-5 progress bar" style={{ height: '8px', width: '45%' }}>
-                      <div className="bg-info" style={{ width: '45%' }}></div>
-                    </div><br></br>
-                    <label style={{ height: '8px' }}> Conception et analyse</label>
-                    <div className="col-sm-5 progress bar" style={{ height: '8px', width: '45%' }}>
-                      <div className="bg-info" style={{ width: '70%' }}></div>
-                    </div><br></br>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div><br></br>
-              <div className='card compet'>
-                <p className='text-center'>J'UTILISE MA PASSION ET MES COMPÉTENCES<br></br>
-                  POUR CRÉER DES PRODUITS NUMÉRIQUES ET EXPÉRIENCES NATIONALE.
-                  LES CLIENTS <br></br> COMPTENT SUR MOI POUR L'ANALYSE, LA CONCEPTION ET LE DEVELOPPEMENT DES <br></br>SITES WEB OU DES APPLICATIONS.</p><br></br>
-                <p className='text-center'>JE SUIS UNE FEMME RESPONSABLE ET RIGOUREUSE QUI S'ADAPTENT A TOUT POUR <br></br>PROGRESSER MES CONNAISSANCES CAR POUR MOI TOUT S'APPREND.</p>
-              </div>
-            </div>
-            <div className='row'>
-              <h4 className='text-uppercase h4'>Expériences professionelles</h4>
-              <div className='col-sm-7'>
-                <div className='card exp'>
-                  <div className='row'>
-                    <div className='col-sm-9'>
-                      <b className='text-sm'>Stage de l'entreprise au sein de HAISOA SARLU à Antananarivo</b>
-                      <p>Pendant la stage j'ai accompli la conception et la réalisation d'une application MIHARO qui a une objectif  de communiquer les acteurs et de mettre en ligne les produits agricoles et les matériaux agricoles en utilisant react js et node js</p>
-                    </div>
-                    <div className='col-sm-3'>
-                      <b className='text-sm'>2023</b>
-                    </div>
-                  </div><br></br>
-                  <div className='row'>
-                    <div className='col-sm-9'>
-                      <b className='text-sm'>Stage au sein de VIVA évènement à Toamasina</b>
-                      <p>Conception et réalisation d'un site web pour publier les nouveaux et de mettre en direct l'évènement de VIVA en utilisant PHP</p>
-                    </div>
-                    <div className='col-sm-3'>
-                      <b className='text-sm'>2021</b>
-                    </div>
-                  </div><br></br>
-                  <div className='row'>
-                    <div className='col-sm-9'>
-                      <b className='text-sm'>Stage au sein de la DRENETP Atsimo andrefana </b>
-                      <p>Conception et réalisation d’une application web pour la gestion des notes de CEPE en utilisant PHP</p>
-                    </div>
-                    <div className='col-sm-3'>
-                      <b className='text-sm'>2019</b>
-                    </div>
-                  </div><br></br>
-                  <div>
-                    <h4 className='text-uppercase text-lg'>Diplomes</h4>
-                  </div><br></br>
-                  <div className='row'>
-                    <div className='col-sm-9'>
-                      <b className='text-sm'>Master professionnel en Informatique Générale</b>
-                    </div>
-                    <div className='col-sm-3'>
-                      <b className='text-sm'>2023</b>
-                    </div>
-                  </div><br></br>
-                  <div className='row'>
-                    <div className='col-sm-9'>
-                      <b className='text-sm'>Licence professionnelle en Informatique Générale</b>
-                    </div>
-                    <div className='col-sm-3'>
-                      <b className='text-sm'>2021</b>
-                    </div>
-                  </div><br></br>
-                  <div className='row'>
-                    <div className='col-sm-9'>
-                      <b className='text-sm'>Baccalauréat serie D</b>
-                    </div>
-                    <div className='col-sm-3'>
-                      <b className='text-sm'>2017</b>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className='col-sm-5'>
-                <img src='./public/od.jpg' alt='image' className='ya' />
-              </div>
-            </div>
-            <div>
-              <h2 className='text-center h2'>CONTACTEZ-MOI</h2>
-              <div className='card formulaire'>
-                <form ref={form} onSubmit={sendEmail}>
-                  <div className="relative border-b-2">
-                    <input type="nom" required={true} name="nom" id='nom' placeholder=" " className="block w-full appearance-none focus:outline-none bg-transparent text-sm" />
-                    <label htmlFor="nom" className="absolute top-0 -z-1 duration-300 origin-0 text-sm ">Votre nom</label>
-                  </div><br></br>
-                  <div className="relative border-b-2 focus-within:border-blue-500">
-                    <input type="email" required={true} name="email" id='email' placeholder=" " className="block w-full appearance-none focus:outline-none bg-transparent text-sm" />
-                    <label htmlFor="email" className="absolute top-0 -z-1 duration-300 origin-0 text-sm ">Votre email</label>
-                  </div><br></br>
-                  <div className="relative border-b-2 focus-within:border-blue-500">
-                    <textarea type="message" required={true} name="message" id='message' placeholder=" " className="block w-full appearance-none focus:outline-none bg-transparent text-sm" />
-                    <label htmlFor="message" className="absolute top-2 -z-1 duration-300 origin-0 text-sm ">Votre message</label>
-                  </div><br></br>
-                  <div className='flex flex-col items-center justify-center'>
-                    <button type="submit" className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 
-                focus:ring-4 focus:ring-gray-100 font-medium rounded-full
-                text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600
-                dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">Envoyer </button>
-                    <ToastContainer />
-                  </div>
-                </form>
-              </div>
-            </div>
-            <div>
-            </div>
-            <br></br>
-            <div className='card contact text-xs text-center'>
-              <b>TODISOA Harivelo Olinah</b>
-              <p>Lot Besakoa, Tuléar</p>
-              <p>Phone : +261324186289</p>
-              <p>+261347432233</p>
-              <p className='text-primary'>olinahharivelo@gmail.com</p>
-            </div><br></br>
-            <div className='reseau'>
-              <table>
-                <tbody>
-                  <tr>
-                    <td>
-                      <a href='https://web.facebook.com/profile.php?id=100006938772608'> <FaFacebook className='fbs' /> </a>
-                    </td>
-                    <td><a href='https://www.instagram.com/olynah3'> <FaInstagramSquare className='inst' /></a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <br></br>
-            <div className='container_footer2'>
-              <div className='copyright col'>
-                <p>ⓒ Développeuse. All rights reserved.</p>
-              </div>
-            </div>
+      <ToastContainer position="bottom-right" />
+
+      {/* NAV */}
+      <nav>
+        <span className="nav-logo">
+          Olinah<span>.</span>
+        </span>
+        <ul className="nav-links">
+          {navLinks.map((l) => (
+            <li key={l.id}>
+              <a
+                href={l.href}
+                className={activeSection === l.id ? "active" : ""}
+              >
+                {l.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+        <a
+          className="nav-cv"
+          href="../cv.pdf"
+          target="_blank"
+          rel="noreferrer"
+          download
+        >
+          <FaDownload size={12} /> Télécharger CV
+        </a>
+        <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
+          {menuOpen ? <FaTimes /> : <FaBars />}
+        </button>
+      </nav>
+
+      {/* MOBILE MENU */}
+      <div className={`mobile-menu ${menuOpen ? "open" : ""}`}>
+        {navLinks.map((l) => (
+          <a key={l.id} href={l.href} onClick={() => setMenuOpen(false)}>
+            {l.label}
+          </a>
+        ))}
+      </div>
+
+      {/* HERO */}
+      <section id="accueil">
+        <div className="hero-blob" />
+        <div className="hero-content">
+          <p className="hero-label">Bonjour, je suis</p>
+          <h1 className="hero-name">TODISOA Harivelo Olinah</h1>
+          <p className="hero-title">Développeuse Web &amp; Mobile</p>
+          <p className="hero-desc">
+            Je conçois et développe des applications web et mobiles modernes,
+            performantes et centrées sur l'utilisateur.
+          </p>
+          <div className="hero-btns">
+            <a href="#projets" className="btn-primary">
+              Voir mes projets
+            </a>
+            <a href="#contact" className="btn-outline">
+              Me contacter
+            </a>
+          </div>
+          <div className="hero-socials">
+            <a
+              href="https://linkedin.com/in/harivelo-olinah"
+              target="_blank"
+              rel="noreferrer"
+              className="social-btn"
+            >
+              <FaLinkedin />
+            </a>
+            <a
+              href="https://github.com/Olinah8/"
+              target="_blank"
+              rel="noreferrer"
+              className="social-btn"
+            >
+              <FaGithub />
+            </a>
+            <a href="mailto:olinahharivelo@gmail.com" className="social-btn">
+              <FaEnvelope />
+            </a>
+            <a
+              href="https://wa.me/261324186289"
+              target="_blank"
+              rel="noreferrer"
+              className="social-btn"
+            >
+              <FaWhatsapp />
+            </a>
+          </div>
+        </div>
+        <div className="hero-img-wrap">
+          <img src="../oli.png" alt="Olinah" className="hero-img" />
+        </div>
+      </section>
+
+      {/* STATS BAND */}
+      <div className="stats-band">
+        <div className="stats-text">
+          <h3>
+            Développeuse passionnée par les nouvelles technologies, avec une
+            solide expérience dans la conception et le développement
+            d'applications web et mobiles. J'aime relever les défis et
+            transformer les idées en solutions innovantes et utiles.
+          </h3>
+        </div>
+        <div className="stats-grid">
+          <div className="stat-item">
+            <span className="stat-num">2+</span>
+            <span className="stat-label">
+              Années
+              <br />
+              d'expérience
+            </span>
+          </div>
+          <div className="stat-item">
+            <span className="stat-num">10+</span>
+            <span className="stat-label">
+              Projets
+              <br />
+              réalisés
+            </span>
+          </div>
+          <div className="stat-item">
+            <span className="stat-num">😊</span>
+            <span className="stat-label">
+              Clients
+              <br />
+              Satisfaits
+            </span>
           </div>
         </div>
       </div>
-    </>
-  )
-}
 
-export default App
+      {/* COMPÉTENCES */}
+      <section id="competences">
+        <h2 className="section-title">Technologies que j'utilise</h2>
+        <span className="underline-orange" />
+        <p className="section-sub" style={{ marginTop: ".75rem" }}>
+          Mon stack technique
+        </p>
+        <div className="tech-grid">
+          {TECHS.map((t) => (
+            <div key={t.name} className="tech-item">
+              <div className="tech-icon">
+                <img src={t.img} alt={t.name} />
+              </div>
+              <span className="tech-name">{t.name}</span>
+            </div>
+          ))}
+        </div>
+
+        <h2 className="section-title">Mes Compétences</h2>
+        <span className="underline-orange" />
+        <p className="section-sub" style={{ marginTop: ".75rem" }}>
+          Compétences techniques détaillées
+        </p>
+        <div className="skills-cols">
+          {SKILLS_COLS.map((col) => (
+            <div key={col.title} className="skill-col">
+              <h4>{col.title}</h4>
+              <ul className="skill-list">
+                {col.items.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        <div className="cta-band">
+          <div>
+            <p>Vous avez un projet en tête ?</p>
+            <p>
+              Discutons de vos idées et créons quelque chose d'extraordinaire.
+            </p>
+          </div>
+          <a href="#contact" className="btn-primary">
+            Me contacter
+          </a>
+        </div>
+      </section>
+
+      {/* PROJETS */}
+      <section id="projets">
+        <h2 className="section-title">Mes Projets</h2>
+        <span className="underline-orange" />
+        <p className="section-sub" style={{ marginTop: ".75rem" }}>
+          Quelques réalisations récentes
+        </p>
+        <div className="filter-tabs">
+          {["tous", "web", "mobile"].map((f) => (
+            <button
+              key={f}
+              className={`filter-tab ${activeFilter === f ? "active" : ""}`}
+              onClick={() => setActiveFilter(f)}
+            >
+              {f === "tous" ? "Tous" : f === "web" ? "Web" : "Mobile"}
+            </button>
+          ))}
+        </div>
+        <div className="projects-grid">
+          {filteredProjects.map((p) => (
+            <div key={p.id} className="project-card">
+              <div
+                className="project-thumb"
+                style={{
+                  background: `linear-gradient(135deg, ${p.color}, #0d1b2a)`,
+                }}
+              >
+                {p.img ? (
+                  <img
+                    src={p.img}
+                    alt={p.title}
+                    className={`project-thumb-img ${p.category === "mobile" ? "mobile" : ""}`}
+                  />
+                ) : (
+                  <span style={{ fontSize: "3rem" }}>💻</span>
+                )}
+                <span className="project-badge">{p.badge}</span>
+              </div>
+              <div className="project-body">
+                <p className="project-title">{p.title}</p>
+                <p className="project-desc">{p.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* À PROPOS */}
+      <section id="apropos">
+        <div className="apropos-inner">
+          <div className="apropos-img-wrap">
+            <img src="../oli.png" alt="Olinah" className="apropos-img" />
+          </div>
+          <div className="apropos-text">
+            <h2>Qui suis-je ?</h2>
+            <p>
+              Je suis <strong>TODISOA Harivelo Olinah</strong>, développeuse web
+              et mobile passionnée, spécialisée dans la conception et le
+              développement d'applications modernes, performantes et intuitives.
+            </p>
+            <p>
+              Mon objectif est d'apporter des solutions numériques innovantes et
+              adaptées aux besoins des utilisateurs et des entreprises.
+            </p>
+            <div className="apropos-info">
+              <div className="info-row">
+                <FaEnvelope size={14} /> olinahharivelo@gmail.com
+              </div>
+              <div className="info-row">
+                <FaPhone size={14} /> +261 34 74 32 233
+              </div>
+              <div className="info-row">
+                <FaMapMarkerAlt size={14} /> Antananarivo, Madagascar
+              </div>
+              <div className="info-row">
+                <FaLinkedin size={14} /> linkedin.com/in/harivelo-olinah
+              </div>
+            </div>
+            <p className="parcours-title">Mon parcours</p>
+            <div className="timeline">
+              {DIPLOMAS.map((d) => (
+                <div key={d.year} className="tl-item">
+                  <span className="tl-dot" />
+                  <p className="tl-year">{d.year}</p>
+                  <p className="tl-diploma">{d.title}</p>
+                  <p className="tl-school">{d.school}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* EXPÉRIENCES */}
+      <section id="experiences">
+        <h2 className="section-title">Expériences professionnelles</h2>
+        <span className="underline-orange" />
+        <p className="section-sub" style={{ marginTop: ".75rem" }}>
+          Mon parcours professionnel
+        </p>
+        <div className="exp-list">
+          {EXPERIENCES.map((e) => (
+            <div key={e.year} className="exp-card">
+              <span className="exp-year-badge">{e.year}</span>
+              <div className="exp-content">
+                <h4>{e.title}</h4>
+                <p>{e.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* CONTACT */}
+      <section id="contact">
+        <h2 className="section-title">Me contacter</h2>
+        <span className="underline-orange" />
+        <p className="section-sub" style={{ marginTop: ".75rem" }}>
+          Restons en contact !
+        </p>
+        <div className="contact-inner">
+          <div className="contact-left">
+            <h3>Vous avez un projet ou une question ?</h3>
+            <p>
+              N'hésitez pas à me contacter. Je réponds généralement sous 24h.
+            </p>
+            <div className="contact-detail">
+              <FaPhone size={14} /> +261 34 74 32 233
+            </div>
+            <div className="contact-detail">
+              <FaEnvelope size={14} />{" "}
+              <a href="mailto:olinahharivelo@gmail.com">
+                olinahharivelo@gmail.com
+              </a>
+            </div>
+            <div className="contact-detail">
+              <FaMapMarkerAlt size={14} /> Antananarivo, Madagascar
+            </div>
+            <div className="contact-detail">
+              <FaLinkedin size={14} />{" "}
+              <a
+                href="https://linkedin.com/in/harivelo-olinah"
+                target="_blank"
+                rel="noreferrer"
+              >
+                linkedin.com/in/harivelo-olinah
+              </a>
+            </div>
+            <div className="contact-socials">
+              <a
+                href="https://linkedin.com/in/harivelo-olinah"
+                target="_blank"
+                rel="noreferrer"
+                className="contact-social"
+              >
+                <FaLinkedin />
+              </a>
+              <a
+                href="https://github.com"
+                target="_blank"
+                rel="noreferrer"
+                className="contact-social"
+              >
+                <FaGithub />
+              </a>
+              <a
+                href="mailto:olinahharivelo@gmail.com"
+                className="contact-social"
+              >
+                <FaEnvelope />
+              </a>
+              <a
+                href="https://wa.me/261324186289"
+                target="_blank"
+                rel="noreferrer"
+                className="contact-social"
+              >
+                <FaWhatsapp />
+              </a>
+            </div>
+          </div>
+          <form ref={form} onSubmit={sendEmail} className="contact-form">
+            <div className="form-row">
+              <div className="field-wrap">
+                <label>Nom</label>
+                <input
+                  type="text"
+                  name="nom"
+                  placeholder="Votre nom"
+                  required
+                />
+              </div>
+              <div className="field-wrap">
+                <label>Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="votre@email.com"
+                  required
+                  pattern="[^\s@]+@[^\s@]+\.[^\s@]+"
+                  title="Veuillez entrer une adresse email valide"
+                />
+              </div>
+            </div>
+            <div className="field-wrap">
+              <label>Sujet</label>
+              <input
+                type="text"
+                name="sujet"
+                placeholder="Sujet de votre message"
+              />
+            </div>
+            <div className="field-wrap">
+              <label>Message</label>
+              <textarea
+                name="message"
+                placeholder="Votre message..."
+                required
+              />
+            </div>
+            <button type="submit" className="btn-send">
+              Envoyer le message →
+            </button>
+          </form>
+        </div>
+      </section>
+
+      {/* FOOTER */}
+      <footer>
+        <div className="footer-inner">
+          <span className="footer-logo">
+            Olinah<span>.</span>
+          </span>
+          <span className="footer-copy">
+            © 2024 Olinah. Tous droits réservés.
+          </span>
+          <button
+            className="footer-top-btn"
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          >
+            <FaArrowUp size={14} />
+          </button>
+        </div>
+      </footer>
+
+      {/* BACK TO TOP */}
+      {showTop && (
+        <button
+          className="back-top"
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        >
+          <FaArrowUp size={14} />
+        </button>
+      )}
+    </>
+  );
+}
