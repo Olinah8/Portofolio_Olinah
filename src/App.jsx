@@ -117,6 +117,11 @@ const EXPERIENCES = [
     desc: "Conception et réalisation de l'application MIHARO : plateforme de mise en ligne des produits et matériaux agricoles avec React JS et Node.js.",
   },
   {
+    year: "2021 - 2023",
+    title: "Développeuse Web (Freelance) –  SUD-CONSULTING, Antananarivo",
+    desc: "Conception et intégration d'interfaces utilisateur responsives avec HTML et CSS.s",
+  },
+  {
     year: "2021",
     title: "Stage – VIVA Évènement, Toamasina",
     desc: "Conception et réalisation d'un site web pour publier les nouvelles et diffuser en direct les évènements VIVA, développé en PHP.",
@@ -253,7 +258,6 @@ export default function App() {
 
       {/* HERO */}
       <section id="accueil">
-        <div className="hero-blob" />
         <div className="hero-content">
           <p className="hero-label">Bonjour, je suis</p>
           <h1 className="hero-name">TODISOA Harivelo Olinah</h1>
@@ -302,6 +306,7 @@ export default function App() {
         </div>
         <div className="hero-img-wrap">
           <img src="../oli.png" alt="Olinah" className="hero-img" />
+          <div className="hero-blob" />
         </div>
       </section>
 

@@ -169,23 +169,11 @@ nav {
 #accueil {
   min-height: 100vh;
   display: flex;
+  justify-content: center;
   align-items: center;
   padding: 80px 5% 60px;
   position: relative;
   overflow: hidden;
-}
-
-.hero-blob {
-  position: absolute;
-  right: 5%;
-  top: 50%;
-  transform: translateY(-40%);
-  width: 400px;
-  height: 400px;
-  background: var(--orange-light);
-  border-radius: 10%;
-  border-bottom-right-radius: 50%;
-  z-index: 0;
 }
 
 .hero-content {
@@ -244,7 +232,22 @@ nav {
   left: 6%;
 }
 
+.hero-blob {
+  position: absolute;
+  right: -30%;
+  top: 50%;
+  transform: translateY(-46%);
+  width: 400px;
+  height: 390px;
+  background: var(--orange-light);
+  border-radius: 10%;
+  border-bottom-right-radius: 50%;
+  z-index: 0;
+}
+
 .hero-img {
+  position: relative;
+  z-index: 1;
   width: 360px;
   height: 420px;
   object-fit: cover;
@@ -1055,7 +1058,7 @@ footer {
   }
   .apropos-img,
   .apropos-img-placeholder {
-    height: 280px;
+    height: 365px;
   }
 
   .contact-inner {
