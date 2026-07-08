@@ -19,14 +19,14 @@ import "react-toastify/dist/ReactToastify.css";
 
 // ─── Données ────────────────────────────────────────────────────────────────
 const TECHS = [
-  { img: "./public/html.png", name: "HTML" },
-  { img: "./public/css.png", name: "CSS" },
-  { img: "./public/js.png", name: "JavaScript" },
-  { img: "./public/react.png", name: "React JS" },
-  { img: "./public/react.png", name: "React Native" },
-  { img: "./public/node.png", name: "Node.js" },
-  { img: "./public/php.png", name: "PHP" },
-  { img: "./public/sql.jpg", name: "SQL" },
+  { img: `${import.meta.env.BASE_URL}html.png`, name: "HTML" },
+  { img: `${import.meta.env.BASE_URL}css.png`, name: "CSS" },
+  { img: `${import.meta.env.BASE_URL}js.png`, name: "JavaScript" },
+  { img: `${import.meta.env.BASE_URL}react.png`, name: "React JS" },
+  { img: `${import.meta.env.BASE_URL}react.png`, name: "React Native" },
+  { img: `${import.meta.env.BASE_URL}node.png`, name: "Node.js" },
+  { img: `${import.meta.env.BASE_URL}php.png`, name: "PHP" },
+  { img: `${import.meta.env.BASE_URL}sql.jpg`, name: "SQL" },
 ];
 
 const SKILLS_COLS = [
@@ -305,7 +305,7 @@ export default function App() {
           </div>
         </div>
         <div className="hero-img-wrap">
-          <img src="./public/oli.png" alt="Olinah" className="hero-img" />
+          <img src={`${BASE_URL}oli.png`} alt="Olinah" className="hero-img" />
           <div className="hero-blob" />
         </div>
       </section>
@@ -448,7 +448,7 @@ export default function App() {
       <section id="apropos">
         <div className="apropos-inner">
           <div className="apropos-img-wrap">
-            <img src="./public/oli.png" alt="Olinah" className="apropos-img" />
+            <img src={`${BASE_URL}oli.png`} alt="Olinah" className="apropos-img" />
           </div>
           <div className="apropos-text">
             <h2>Qui suis-je ?</h2>
