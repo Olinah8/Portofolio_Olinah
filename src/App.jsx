@@ -305,7 +305,7 @@ export default function App() {
           </div>
         </div>
         <div className="hero-img-wrap">
-          <img src={`${BASE_URL}oli.png`} alt="Olinah" className="hero-img" />
+          <img src={`${import.meta.env.BASE_URL}oli.png`} alt="Olinah" className="hero-img" />
           <div className="hero-blob" />
         </div>
       </section>
@@ -448,7 +448,7 @@ export default function App() {
       <section id="apropos">
         <div className="apropos-inner">
           <div className="apropos-img-wrap">
-            <img src={`${BASE_URL}oli.png`} alt="Olinah" className="apropos-img" />
+            <img src={`${import.meta.env.BASE_URL}oli.png`} alt="Olinah" className="apropos-img" />
           </div>
           <div className="apropos-text">
             <h2>Qui suis-je ?</h2>
