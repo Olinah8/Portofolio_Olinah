@@ -56,7 +56,7 @@ const PROJECTS = [
     badge: "Web",
     category: "web",
     color: "#1a2a3d",
-    img: "../intra.PNG",
+    img: `${import.meta.env.BASE_URL}intra.PNG`,
   },
   {
     id: 2,
@@ -65,7 +65,7 @@ const PROJECTS = [
     badge: "Web",
     category: "web",
     color: "#2a1a3d",
-    img: "../suivi.PNG",
+    img: `${import.meta.env.BASE_URL}suivi.PNG`,
   },
   {
     id: 3,
@@ -74,7 +74,7 @@ const PROJECTS = [
     badge: "Web",
     category: "web",
     color: "#1a3d2a",
-    img: "../safenet.PNG",
+    img: `${import.meta.env.BASE_URL}safenet.PNG`,
   },
   {
     id: 4,
@@ -83,7 +83,7 @@ const PROJECTS = [
     badge: "Mobile",
     category: "mobile",
     color: "#2d4a22",
-    img: "../Mintra.jpg",
+    img: `${import.meta.env.BASE_URL}Mintra.jpg`,
   },
   {
     id: 5,
@@ -92,7 +92,7 @@ const PROJECTS = [
     badge: "Web",
     category: "web",
     color: "#1a2e45",
-    img: "../miharo.PNG",
+    img: `${import.meta.env.BASE_URL}miharo.PNG`,
   },
   {
     id: 6,
@@ -101,7 +101,7 @@ const PROJECTS = [
     badge: "Mobile",
     category: "mobile",
     color: "#3d2a1a",
-    img: "../mobile.jpg",
+    img: `${import.meta.env.BASE_URL}mobile.jpg`,
   },
 ];
 
