@@ -638,7 +638,7 @@ section {
 
 .apropos-img {
   width: 100%;
-  border-radius: 16px;
+  border-radius: 20px;
   object-fit: cover;
   height: 620px;
 }
@@ -1027,6 +1027,9 @@ footer {
   }
   .nav-cv {
     display: none;
+  }
+  .mobile-menu .nav-cv {
+    display: flex;
   }
   .hamburger {
     display: block;

@@ -87,7 +87,7 @@ const PROJECTS = [
   },
   {
     id: 5,
-    title: "Application MIHARO",
+    title: "MIHARO – Web ",
     desc: "Application web dédiée à l'agriculture, regroupant la vente de produits agricoles, la location de matériel et des formations pour favoriser les échanges et le développement du secteur.",
     badge: "Web",
     category: "web",
@@ -259,6 +259,15 @@ export default function App() {
             {l.label}
           </a>
         ))}
+        <a
+          href={`${import.meta.env.BASE_URL}cv.pdf`}
+          download
+          rel="noreferrer"
+          className="nav-cv"
+          style={{ alignSelf: "flex-start" }}
+        >
+          <FaDownload size={12} /> Télécharger CV
+        </a>
       </div>
 
       {/* HERO */}
@@ -458,7 +467,7 @@ export default function App() {
         <div className="apropos-inner">
           <div className="apropos-img-wrap">
             <img
-              src={`${import.meta.env.BASE_URL}oli.png`}
+              src={`${import.meta.env.BASE_URL}image.png`}
               alt="Olinah"
               className="apropos-img"
             />
@@ -568,7 +577,7 @@ export default function App() {
                 <FaLinkedin />
               </a>
               <a
-                href="https://github.com"
+                href="https://github.com/Olinah8/"
                 target="_blank"
                 rel="noreferrer"
                 className="contact-social"
