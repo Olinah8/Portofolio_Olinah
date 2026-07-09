@@ -65,6 +65,12 @@ nav {
   color: var(--navy);
 }
 
+.nav-logo img {
+  height: 70px;
+  width: auto;
+  object-fit: contain;
+}
+
 .nav-logo span {
   color: var(--orange);
 }
@@ -940,6 +946,12 @@ section {
 footer {
   background: #070f18;
   padding: 2.5rem 5%;
+}
+
+.footer-logo img {
+  height: 60px;
+  width: auto;
+  object-fit: contain;
 }
 
 .footer-inner {

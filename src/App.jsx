@@ -219,7 +219,12 @@ export default function App() {
       {/* NAV */}
       <nav>
         <span className="nav-logo">
-          Olinah<span>.</span>
+          {/* Olinah<span>.</span> */}
+          <img
+            src={`${import.meta.env.BASE_URL}logo.png`}
+            alt="Olinah"
+            className="nav-logo img"
+          />
         </span>
         <ul className="nav-links">
           {navLinks.map((l) => (
@@ -305,7 +310,11 @@ export default function App() {
           </div>
         </div>
         <div className="hero-img-wrap">
-          <img src={`${import.meta.env.BASE_URL}oli.png`} alt="Olinah" className="hero-img" />
+          <img
+            src={`${import.meta.env.BASE_URL}oli.png`}
+            alt="Olinah"
+            className="hero-img"
+          />
           <div className="hero-blob" />
         </div>
       </section>
@@ -448,7 +457,11 @@ export default function App() {
       <section id="apropos">
         <div className="apropos-inner">
           <div className="apropos-img-wrap">
-            <img src={`${import.meta.env.BASE_URL}oli.png`} alt="Olinah" className="apropos-img" />
+            <img
+              src={`${import.meta.env.BASE_URL}oli.png`}
+              alt="Olinah"
+              className="apropos-img"
+            />
           </div>
           <div className="apropos-text">
             <h2>Qui suis-je ?</h2>
@@ -628,7 +641,12 @@ export default function App() {
       <footer>
         <div className="footer-inner">
           <span className="footer-logo">
-            Olinah<span>.</span>
+            {/* Olinah<span>.</span> */}
+            <img
+              src={`${import.meta.env.BASE_URL}logo1.png`}
+              alt="Olinah"
+              className="footer-logo img"
+            />
           </span>
           <span className="footer-copy">
             © 2024 Olinah. Tous droits réservés.
