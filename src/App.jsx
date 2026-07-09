@@ -164,15 +164,16 @@ export default function App() {
       setShowTop(window.scrollY > 400);
       const sections = [
         "accueil",
-        "apropos",
         "competences",
-        "projets",
         "experiences",
+        "projets",
+        "apropos",
         "contact",
       ];
       for (const id of [...sections].reverse()) {
         const el = document.getElementById(id);
         if (el && window.scrollY >= el.offsetTop - 100) {
+          console.log("Section active :", id);
           setActiveSection(id);
           break;
         }
@@ -203,6 +204,7 @@ export default function App() {
     { href: "#accueil", label: "Accueil", id: "accueil" },
     { href: "#apropos", label: "À propos", id: "apropos" },
     { href: "#competences", label: "Compétences", id: "competences" },
+    { href: "#experiences", label: "Expériences", id: "experiences" },
     { href: "#projets", label: "Projets", id: "projets" },
     { href: "#contact", label: "Contact", id: "contact" },
   ];
@@ -259,7 +261,7 @@ export default function App() {
             {l.label}
           </a>
         ))}
-        <a
+        {/* <a
           href={`${import.meta.env.BASE_URL}cv.pdf`}
           download
           rel="noreferrer"
@@ -267,7 +269,7 @@ export default function App() {
           style={{ alignSelf: "flex-start" }}
         >
           <FaDownload size={12} /> Télécharger CV
-        </a>
+        </a> */}
       </div>
 
       {/* HERO */}
@@ -415,6 +417,26 @@ export default function App() {
         </div>
       </section>
 
+      {/* EXPÉRIENCES */}
+      <section id="experiences">
+        <h2 className="section-title">Mes expériences professionnelles</h2>
+        <span className="underline-orange" />
+        <p className="section-sub" style={{ marginTop: ".75rem" }}>
+          Mon parcours professionnel
+        </p>
+        <div className="exp-list">
+          {EXPERIENCES.map((e) => (
+            <div key={e.year} className="exp-card">
+              <span className="exp-year-badge">{e.year}</span>
+              <div className="exp-content">
+                <h4>{e.title}</h4>
+                <p>{e.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* PROJETS */}
       <section id="projets">
         <h2 className="section-title">Mes Projets</h2>
@@ -509,26 +531,6 @@ export default function App() {
               ))}
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* EXPÉRIENCES */}
-      <section id="experiences">
-        <h2 className="section-title">Expériences professionnelles</h2>
-        <span className="underline-orange" />
-        <p className="section-sub" style={{ marginTop: ".75rem" }}>
-          Mon parcours professionnel
-        </p>
-        <div className="exp-list">
-          {EXPERIENCES.map((e) => (
-            <div key={e.year} className="exp-card">
-              <span className="exp-year-badge">{e.year}</span>
-              <div className="exp-content">
-                <h4>{e.title}</h4>
-                <p>{e.desc}</p>
-              </div>
-            </div>
-          ))}
         </div>
       </section>
 

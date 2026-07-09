@@ -117,7 +117,7 @@ nav {
 
 .nav-cv {
   background: var(--orange);
-  color: white;
+  color: white !important;
   border: none;
   padding: 0.55rem 1.2rem;
   border-radius: 6px;
@@ -1021,16 +1021,21 @@ footer {
 }
 
 /* ─── RESPONSIVE ──────────────────────────────────────── */
-@media (max-width: 900px) {
+@media (max-width: 950px) {
   .nav-links {
     display: none;
   }
   .nav-cv {
-    display: none;
+    padding: 0.25rem 0.4rem;
+    margin-left: auto;
+    margin-right: 0.5rem;
+    font-size: 0.75rem;
+    gap: 0.2rem;
+    /* display: none; */
   }
-  .mobile-menu .nav-cv {
+  /* .mobile-menu .nav-cv {
     display: flex;
-  }
+  } */
   .hamburger {
     display: block;
   }
